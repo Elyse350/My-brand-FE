@@ -407,7 +407,7 @@ section {
 .facts .count-box i {
   display: block;
   font-size: 44px;
-  color: #149ddd;
+  color: #635d0f;
   float: left;
   line-height: 0;
 }
@@ -538,7 +538,7 @@ section {
   left: -9px;
   top: 0;
   background: #fff;
-  border: 2px solid #1f5297;
+  border: 2px solid #58510b;
 }
 
 /*--------------------------------------------------------------
@@ -573,7 +573,7 @@ section {
 
 .portfolio #portfolio-flters li:hover,
 .portfolio #portfolio-flters li.filter-active {
-  color: #149ddd;
+  color: #756a0c;
 }
 
 .portfolio #portfolio-flters li:last-child {
