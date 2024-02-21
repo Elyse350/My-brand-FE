@@ -1,19 +1,8 @@
 function output() {
   const data = localStorage.getItem("users");
-  let users;
+  const users = JSON.parse(data);
 
-  try {
-    users = JSON.parse(data);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return;
-  }
-
-  if (!Array.isArray(users)) {
-    console.error("users is not an array");
-    return;
-  }
-
+ 
   // Create table structure and populate with user data
   const createTable = (users) => {
     return `
@@ -29,24 +18,36 @@ function output() {
           ${createTableData(users)}
         </tbody>
       </table>
-    `;
+    `
+    
   };
-
+ 
   const createTableData = (users) => {
     let html = "";
-    users.forEach((user) => {
+    if (true) {
+      users.forEach(user => {
+        html += `
+          <tr>
+            <td>${user.fullname}</td>
+            <td>${user.date}</td>
+            <td>${user.email}</td>
+          </tr>
+        `;
+      });
+    } else {
       html += `
         <tr>
-          <td>${user.fullname}</td>
-          <td>${user.date}</td>
-          <td>${user.email}</td>
+          <td colspan="4">No users found</td>
         </tr>
       `;
-    });
+    }
     return html;
   };
-
+  
   document.getElementById('table').innerHTML = `
+  
     ${createTable(users)}
-  `;
+  
+`;
 }
+// blog
