@@ -1,3 +1,4 @@
+
 const form = document.querySelector("form");
 const eField = form.querySelector(".email");
 const eInput = eField.querySelector("input");
@@ -29,17 +30,15 @@ form.onsubmit = (e) => {
 
   // Check if email and password are not blank
   if (eInput.value !== "" && pInput.value !== "") {
-    // Store email and password in local storage
     localStorage.setItem('email', eInput.value);
     localStorage.setItem('password', pInput.value);
-    
-    // Redirect to dashboard
-    window.location.href = './dashboard/dash.html';
+
+    window.location.href = './dashboard/dash.html'; // Redirect to dashboard
+    }
   }
-}
 
 // Check if email and password are already stored in local storage
-if (localStorage.getItem('email') && localStorage.getItem('password')) {
+// if (localStorage.getItem('email') && localStorage.getItem('password')) {
   // Redirect to dashboard if email and password are present
-  window.location.href = './dashboard/dash.html';
-}
+  // window.location.href = './dashboard/dash.html';
+// }

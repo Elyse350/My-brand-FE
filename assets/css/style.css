@@ -1439,3 +1439,57 @@ button:hover {
   transition: .2s;
   box-shadow: 0 0 15px 0 rgba(255,36,0,1);
 }
+/* Style for dashboard and blog page */
+#dashboard, #blogPage {
+  display: none;
+  padding: 20px;
+}
+
+/* Style for blog post creation form */
+#blogForm {
+  margin-bottom: 20px;
+}
+
+#blogForm input[type="text"],
+#blogForm textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+#blogForm button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for blog post container */
+#blogPostsContainer, #userBlogPostsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.blog-post {
+  width: calc(33.33% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.blog-post h4 {
+  margin-top: 0;
+}
+
+.blog-post img {
+  width: 100%;
+  height: auto;
+}
+
+.blog-post p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}

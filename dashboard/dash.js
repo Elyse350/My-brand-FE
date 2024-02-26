@@ -1,12 +1,12 @@
+
 function output() {
   const data = localStorage.getItem("users");
   const users = JSON.parse(data);
 
- 
-  // Create table structure and populate with user data
+  
   const createTable = (users) => {
     return `
-      <table id="table">
+      <table>
         <thead>
           <tr>
             <th>UserName</th>
@@ -18,13 +18,12 @@ function output() {
           ${createTableData(users)}
         </tbody>
       </table>
-    `
-    
+    `;
   };
- 
+
   const createTableData = (users) => {
     let html = "";
-    if (true) {
+    if (users && users.length > 0) {
       users.forEach(user => {
         html += `
           <tr>
@@ -37,17 +36,12 @@ function output() {
     } else {
       html += `
         <tr>
-          <td colspan="4">No users found</td>
+          <td colspan="3">No users found</td>
         </tr>
       `;
     }
     return html;
   };
-  
-  document.getElementById('table').innerHTML = `
-  
-    ${createTable(users)}
-  
-`;
+
+  document.getElementById('table').innerHTML = createTable(users);
 }
-// blog

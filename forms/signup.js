@@ -1,5 +1,4 @@
-
-const form = document.querySelector("form");
+const form = document.getElementById("signUpForm");
 const passwordInput = document.getElementById("password");
 const passToggleBtn = document.getElementById("pass-toggle-btn");
 
@@ -20,14 +19,12 @@ const handleUser = (e) => {
     const fullnameInput = document.getElementById('fullname');
     const emailInput = document.getElementById('email');
     const dateInput = document.getElementById('date');
-    
 
     // Getting trimmed values from input fields
     const fullname = fullnameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
     const date = dateInput.value;
-    
 
     // Regular expression pattern for email validation
     const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
@@ -49,22 +46,36 @@ const handleUser = (e) => {
     if (date === "") {
         showError(dateInput, "Select your date of birth");
     }
-   
+
     // Checking for any remaining errors before form submission
     const errorInputs = document.querySelectorAll(".form-group .error");
     if (errorInputs.length > 0) return;
 
-    const users ={
-        fullname,
-        email,
-        date,
-    
-    };
-    localStorage.setItem("users", JSON.stringify(users));
+    let role="user";
+    if (email=== "admin@gmail.com"){
+        role = "admin"
+    }
+    // Storing user data in local storage
+    let user_records = JSON.parse(localStorage.getItem("users")) || [];
+    if (!Array.isArray(user_records)) {
+        user_records = []; // Initialize user_records as an empty array if it's not an array
+    }
+if (user_records.some((v) => v.email === email)) {
+    alert("Duplicate email");
+} else {
+    user_records.push({
+        fullname: fullname,
+        email: email,
+        password: password,
+        date: date,
+        role: role
+    });
 
-    // Submitting the form
-    form.submit();
+    localStorage.setItem("users", JSON.stringify(user_records));
+    // Redirecting user after successful submission
     window.location.href = './dashboard/dash.html';
+}
+
 }
 
 // Toggling password visibility
@@ -75,9 +86,3 @@ passToggleBtn.addEventListener('click', () => {
 
 // Handling form submission event
 form.addEventListener("submit", handleUser);
-
-
-
-
-//sign in
-

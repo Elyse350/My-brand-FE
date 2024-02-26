@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const detailTitle = document.getElementById('detailTitle');
     const detailDate = document.getElementById('detailDate');
     const detailDescription = document.getElementById('detailDescription');
-    const postImage = document.getElementById('postImage').files[0]; // Get the uploaded image file
 
     // Function to create a new blog post element
     function createBlogPostElement(post) {
@@ -53,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const postDescription = document.getElementById('postDescription').value;
 
         // Validation
-        if (postCategory.trim() === '' || postTitle.trim() === '' || postDescription.trim() === '' || !postImage) {
-            alert('Please fill out all fields and upload an image.');
+        if (postCategory.trim() === '' || postTitle.trim() === '' || postDescription.trim() === '') {
+            alert('Please fill out all fields.');
             return;
         }
 
@@ -67,8 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
             category: postCategory,
             title: postTitle,
             description: postDescription,
-            date: formattedDate,
-            image: URL.createObjectURL(postImage)
+            date: formattedDate
         };
 
         // Save the new post to local storage
@@ -123,18 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     
-    function createBlogPostElement(post) {
-        const newPostElement = document.createElement('div');
-        newPostElement.className = 'blog-post';
-        newPostElement.innerHTML = `
-            <h4>${post.title}</h4>
-            <img src="${post.image}" alt="${post.title}"> <!-- Display the uploaded image -->
-            <p>${post.description}</p>
-            <p>Category: ${post.category}</p>
-            <p>Date: ${post.date}</p>
-        `;
-        return newPostElement;
-    }
+
     closeDetailModal.addEventListener('click', function () {
 
         // Add fadeOut class
