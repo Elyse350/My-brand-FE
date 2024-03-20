@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const postDescription = document.getElementById('postDescription').value;
 
         // Validation
-        if (postCategory.trim() === '' || postTitle.trim() === '' || postDescription.trim() === '' || !postImage) {
-            alert('Please fill out all fields and upload an image.');
-            return;
-        }
+        // if (postCategory.trim() === '' || postTitle.trim() === '' || postDescription.trim() === '' || !postImage) {
+        //     alert('Please fill out all fields and upload an image.');
+        //     return;
+        // }
 
         // Get the current date
         const currentDate = new Date();

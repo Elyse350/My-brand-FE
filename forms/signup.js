@@ -11,6 +11,17 @@ const showError = (field, errorText) => {
     field.closest(".form-group").appendChild(errorElement);
 }
 
+
+// Retrieving input elements
+const fullnameInput = document.getElementById('fullname');
+const emailInput = document.getElementById('email');
+const dateInput = document.getElementById('date');
+
+// Getting trimmed values from input fields
+const fullname = fullnameInput.value.trim();
+const email = emailInput.value.trim();
+const password = passwordInput.value.trim();
+const date = dateInput.value;
 // Function to handle form submission
 const handleUser = (e) => {
     e.preventDefault();
@@ -60,29 +71,41 @@ const handleUser = (e) => {
     if (!Array.isArray(user_records)) {
         user_records = []; // Initialize user_records as an empty array if it's not an array
     }
-if (user_records.some((v) => v.email === email)) {
-    alert("Duplicate email");
-} else {
-    user_records.push({
-        fullname: fullname,
-        email: email,
-        password: password,
-        date: date,
-        role: role
-    });
-
-    localStorage.setItem("users", JSON.stringify(user_records));
-    // Redirecting user after successful submission
-    window.location.href = './dashboard/dash.html';
-}
-
-}
 
 // Toggling password visibility
 passToggleBtn.addEventListener('click', () => {
     passToggleBtn.className = passwordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
     passwordInput.type = passwordInput.type === "password" ? "text" : "password";
 });
-
+sendData()
+}
 // Handling form submission event
 form.addEventListener("submit", handleUser);
+function sendData (){
+  alert("sending info")
+  let userdata = {
+    fullname : fullnameInput.value,
+    email : emailInput.value,
+    password : passwordInput.value
+  }
+  console.log(userdata)
+  fetch("http://localhost:5646/users/register", 
+ {
+  method:"POST",
+  body:JSON.stringify(userdata),
+  headers:{'Content-Type': 'application/json',
+}
+ })
+ .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+             if (data.message=="User registered successfully"){
+              
+              window.location.href= './signin.html'
+             }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};

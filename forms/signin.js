@@ -1,44 +1,67 @@
 
-const form = document.querySelector("form");
-const eField = form.querySelector(".email");
-const eInput = eField.querySelector("input");
-const pField = form.querySelector(".password");
-const pInput = pField.querySelector("input");
+const form = document.getElementById("form");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
-form.onsubmit = (e) => {
-  e.preventDefault(); // Prevent form submission
+form.addEventListener("submit" ,  (e) => {
+  e.preventDefault(); 
 
   // Check if email and password are blank
-  if (eInput.value == "") {
-    eField.classList.add("shake", "error");
-  } else {
-    eField.classList.remove("error");
-    eField.classList.add("valid");
+  // if (eInput.value == "") {
+  //   eField.classList.add("shake", "error");
+  // } else {
+  //   eField.classList.remove("error");
+  //   eField.classList.add("valid");
+  // }
+
+  // if (pInput.value == "") {
+  //   pField.classList.add("shake", "error");
+  // } else {
+  //   pField.classList.remove("error");
+  //   pField.classList.add("valid");
+  // }
+
+  // setTimeout(() => { // Remove shake class after 500ms
+  //   eField.classList.remove("shake");
+  //   pField.classList.remove("shake");
+  // }, 500);
+
+  sendInfo()
+})
+function sendInfo() {
+  alert("sending info")
+  let userlog = {
+    email: emailInput.value,
+    password: passwordInput.value
   }
+  console.log(userlog)
+  fetch("http://localhost:5646/users/login",
+    {
+      method: "POST",
+      body: JSON.stringify(userlog),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
 
-  if (pInput.value == "") {
-    pField.classList.add("shake", "error");
-  } else {
-    pField.classList.remove("error");
-    pField.classList.add("valid");
-  }
+      if (data.message =='User logged in successfully') {
+     
+        localStorage.setItem("userlog", data.user)
+        localStorage.setItem("token",  JSON.stringify(data?.token));
 
-  setTimeout(() => { // Remove shake class after 500ms
-    eField.classList.remove("shake");
-    pField.classList.remove("shake");
-  }, 500);
+        if (data.user.userRole == "admin") {
+          window.location.href = "./dashboard/dash.html"
+        }
+        else {
+          window.location.href = './home.html'
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+};
 
-  // Check if email and password are not blank
-  if (eInput.value !== "" && pInput.value !== "") {
-    localStorage.setItem('email', eInput.value);
-    localStorage.setItem('password', pInput.value);
-
-    window.location.href = './dashboard/dash.html'; // Redirect to dashboard
-    }
-  }
-
-// Check if email and password are already stored in local storage
-// if (localStorage.getItem('email') && localStorage.getItem('password')) {
-  // Redirect to dashboard if email and password are present
-  // window.location.href = './dashboard/dash.html';
-// }
