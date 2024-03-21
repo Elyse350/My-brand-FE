@@ -62,7 +62,7 @@
           </li>
           <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Portfoio</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-          <li><a href="./signin.html" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Logout</span></a></li>
+          <li><a href="/signin.html" class="nav-link scrollto" ><i class="bx bx-user"></i><span>Logout </span></a></li>
         </ul>
       </nav>
       <!-- .nav-menu -->
@@ -243,13 +243,13 @@
     <section id="portfolio" class="portfolio section-bg" style="background-color: rgb(185, 167, 77);width: 100%;">
       <div class="container">
 
-        <div class="section-title">
+        <!-- <div class="section-title">
           <h2>Blog</h2>
           <p>Welcome to my blog, where I showcase my coding projects aimed at addressing real-world challenges. Among them, the Rwanda Booking Tour application revolutionizes tourism by streamlining booking processes. In the realm of healthcare, my Doctor Appointment system enhances scheduling efficiency. Additionally, my Trash Pay platform incentivizes waste management for a cleaner environment.</p>
         </div>
         <div class="blog-container"   style="display: flex;">
           
-        </div>
+        </div> -->
 
 
 
@@ -406,6 +406,16 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
+      <!-- <script>
+       function logout() {
+        // Clear authentication state 
+        localStorage.removeItem('adminIsLoggedIn');
+        localStorage.removeItem('token')
+      
+        // Redirect to login page 
+        window.location.href = "/signin.html";
+    }
+  </script> -->
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>

@@ -89,7 +89,7 @@ function sendData (){
     password : passwordInput.value
   }
   console.log(userdata)
-  fetch("http://localhost:5646/users/register", 
+  fetch("https://mybrand-backend-up13.onrender.com/users/register", 
  {
   method:"POST",
   body:JSON.stringify(userdata),

@@ -105,37 +105,50 @@
                     </svg></button>
             </div>
         </div> -->
-         <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg" style="background-color: rgb(185, 167, 77);width: 100%;margin-left: 160px;">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Blog</h2>
-          <p>Welcome to my blog, where I showcase my coding projects aimed at addressing real-world challenges. Among them, the Rwanda Booking Tour application revolutionizes tourism by streamlining booking processes. In the realm of healthcare, my Doctor Appointment system enhances scheduling efficiency. Additionally, my Trash Pay platform incentivizes waste management for a cleaner environment.</p>
-        </div>
-        <div class="blogs-container">
-          <div class="blogs" id="blogs-container">
-              
-
-          </div>
-     
-          <div class="blog-cta">
-              <button class="load-more"><span>Load More</span> <svg data-slot="icon" fill="none"
-                      stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"></path>
-                  </svg></button>
-          </div>
-      </div> 
-
-
-
-
-
-
-      </div>
-    </section><!-- End Portfolio Section -->
+        <section id="portfolio" class="portfolio section-bg" style="background-color: rgb(185, 167, 77);width: 100%;">
+          <div class="container">
+            <div class="section-title">
+              <div class="skills-section blog-home" id="blog-home">
+                <h2>Blog</h2>
+                <p class="grey-text text-center join-text">
+                  Join me on my journey as I share my insights and experiences on web
+                  development, business, and content creation.
+                </p>
+              </div>
+    
+    
+              <div class="blog-container-section">
+    
+            </div>
+            <script>
+              // Fetch blog data from the API endpoint
+              fetch('https://mybrand-backend-up13.onrender.com/add')
+                .then(response => response.json())
+                .then(data => {
+                  const blogs=data.blogs || []
+                  const blogContainer = document.querySelector('.blog-container-section');
+                  console.log(blogs)
+                  let index = 0
+                  blogs.forEach(blog => {
+                   // blogContainer.innerHTML = ""
+                    blog = blogs[index + 1]
+                    // Populate blog content dynamically
+                    blogContainer.innerHTML += `
+                    <div class="dashboard-blog-container-upper" style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <p class="title">${blog.title}</p>
+                                        <img src="http://localhost:5646/${blog.image}" alt="">
+                                        <p class="category-tag">${blog.category}</p>
+                                    </div>
+                                    <a href="./homeblogs.html" class="new-blog-link">Read more</a>
+                                </div>
+                            `;
+                    index +=1;
+                    blogContainer.appendChild(blogElement);
+                  });
+                })
+                .catch(error => console.error('Error fetching blog data:', error));
+            </script>
 
 
 

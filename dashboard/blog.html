@@ -82,11 +82,12 @@
     <main class="post-container">
       <div class="dashboard-blog-container dashboard-input-information">
         <div class="dashboard-input-information-upper-section">
-            <p class="title white-text small-text"> Fill in Information</p>
-            <a class="title text-yellow rounded-text category-tag small-text cursor-pointer">Preview</a>
-            
+          <p class="title white-text small-text"> Fill in Information</p>
+          <a class="title text-yellow rounded-text category-tag small-text cursor-pointer">Preview</a>
+
         </div>
-        <form action="" method="POST"  class="dashboard-input-information-form" id="dashboard-input-information-form" enctype = "multipart/form-data">
+        <form action="" method="POST" class="dashboard-input-information-form" id="dashboard-input-information-form"
+          enctype="multipart/form-data">
           <div class="title">
             <label class="postheading" for="postTitle">
               Image
@@ -94,308 +95,260 @@
             <input type="file" accept="/img/*" class="postTitle" id="blog-form-poster" name="poster" autocomplete="off"
               required>
           </div>
-           
-            <div class="dashboard-image-preview">
-                <img src="" alt="blog-poster" id="image-preview">
-            </div>
 
-              <div class="input-form">
-                <p class="hite-text title small-text">Title</p>
-                <input  type="text" name="title" id="blog-form-title" placeholder="Enter The Title"/>
-                <p class="small-text red-text error" id="blog-form-title-error"></p>
+          <div class="dashboard-image-preview">
+            <img src="" alt="blog-poster" id="image-preview">
+          </div>
 
-              </div>
-              <!-- <div class="input-form">
+          <div class="input-form">
+            <p class="hite-text title small-text">Title</p>
+            <input type="text" name="title" id="blog-form-title" placeholder="Enter The Title" />
+            <p class="small-text red-text error" id="blog-form-title-error"></p>
+
+          </div>
+          <!-- <div class="input-form">
                 <p class="hite-text title small-text">Sub Title</p>
                 <input type="text" name="title" id="blog-form-sub-title" placeholder="Enter The sub Title"/>
                 <p class="small-text red-text error" id="blog-form-sub-title-error"></p>
 
               </div> -->
 
-              <div class="input-form">
-                <p class="hite-text title small-text">Category</p>
-                  <select name="categories" id="blog-form-category" title="Categories">
-                    <option value="">Choose Category</option>
-                    <option value="web-development">Web Development</option>
-                    <option value="artificial-intelligence">Artificial Intelligence</option>
-                    <option value="technology">Technology</option>
-                    <option value="web-hosting">Web Hosting</option>
-                </select>
-                <p class="small-text red-text error" id="blog-form-category-error"></p>
+          <div class="input-form">
+            <p class="hite-text title small-text">Category</p>
+            <select name="categories" id="blog-form-category" title="Categories">
+              <option value="">Choose Category</option>
+              <option value="web-development">Web Development</option>
+              <option value="artificial-intelligence">Artificial Intelligence</option>
+              <option value="technology">Technology</option>
+              <option value="web-hosting">Web Hosting</option>
+            </select>
+            <p class="small-text red-text error" id="blog-form-category-error"></p>
 
-              </div>
-              <!-- <div class="input-form">
+          </div>
+          <!-- <div class="input-form">
                 <p class="hite-text title small-text">Time To read</p>
                 <input type="text" name="time" id="blog-form-time-to-read" placeholder="Enter TheTime Taken To read"/>
                 <p class="small-text red-text error" id="blog-form-time-to-read-error"></p>
               
             </div> -->
-              <div class="input-form">
-                <p class="hite-text title small-text">description</p>
-                <label for="blog-form-content"></label>
-                <textarea name="blog-form-content" id='blog-form-content' rows="3" title="content"></textarea>
-                <p class="small-text red-text error" id="blog-form-content-error"></p>
+          <div class="input-form">
+            <p class="hite-text title small-text">description</p>
+            <label for="blog-form-content"></label>
+            <textarea name="blog-form-content" id='blog-form-content' rows="3" title="content"></textarea>
+            <p class="small-text red-text error" id="blog-form-content-error"></p>
 
-              </div>
+          </div>
 
-              <div class="input-form">
-                <button type="submit"  value="" class="button">Upload Blog </button>
-                    </div>
+          <div class="input-form">
+          <button type="submit" value="" class="button">Upload Blog </button>
+          </div>
         </form>
-        
+
       </div>
 
       <!-- Detail Modal -->
-     
-        <!-- Detail Modal -->
-      
 
-        <script>
-          const blogForm = document.getElementById("dashboard-input-information-form")
-          let blogPoster = document.getElementById("blog-form-poster");
-          let blogTitle = document.getElementById("blog-form-title")
-          let blogContent = document.getElementById("blog-form-content")
-          let blogCategory = document.getElementById("blog-form-category")
-          const blogPosterError = document.getElementById("blog-form-poster-error")
-          const blogTitleError = document.getElementById("blog-form-title-error")
-          const blogContentError = document.getElementById("blog-form-content-error")
-          const blogCategoryError = document.getElementById("blog-form-category-error")
-          const errorContainer = document.getElementById("error-container");
-          const errorElement = document.getElementById("error-text");
-          const successContainer = document.getElementById("success-container");
-          const successElement = document.getElementById("success-text");
-          const previewContainer = document.querySelector('.dashboard-image-preview')
-          let imageUrl =null
-          let blobUrl =null
-          let selectedImage = undefined
-  
-          const todayDate = new Date();
-          const today = todayDate.getDate();
-          const month = todayDate.getMonth();
-          const year = todayDate.getFullYear();
-          const hours = todayDate.getHours();
-          const minutes = todayDate.getMinutes();
-          const seconds = todayDate.getSeconds();
-  
-          let myFormdata = new FormData();
-  
-          // getting image posters from input field
-          blogPoster.addEventListener("change", handleImageUpload);
-  
-  function handleImageUpload(event) {
-    const selectedFile = event.target.files[0];
-    selectedImage = event.target.files[0]
-  
-  myFormdata.append("image", selectedFile)
-  myFormdata.append("title", "selectedFile")
-  // myFormdata.get('title')
-  
-    if (selectedFile) {
-      const reader = new FileReader();
-       blobURL = URL.createObjectURL(selectedFile);
-  
-      reader.onload = function (e) {
-        const dataURL = e.target.result;
-        // Use this dataURL to display the image wherever needed
-        displayImage(dataURL);
-        imageUrl=dataURL
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-    
-  }
-  
-  function displayImage(dataURL) {
-    const imagePreview = document.getElementById("image-preview");
-    imagePreview.style.display="block"
-    imagePreview.style.width="60%"
-    imagePreview.style.height="40%"
-    imagePreview.src = dataURL;
-    imagePreview.onload = function () {
-        URL.revokeObjectURL(blobUrl);
-      };
-  }
-  
-  console.log('imageUrl',imageUrl,"end")
-  const handleBlogSubmit = () => {
-    let params = {
-      poster: imageUrl,
-      title: blogTitle.value,
-      category: blogCategory.value,
-      content: blogContent.value,
-      timeToRead: blogTime.value,
-      date: `${today}/${month}/${year}`,
-      time: `${hours}:${minutes}:${seconds}`,
-      editor:"elyse",
-      views:[],
-      likes:[],
-      comments:[],
-      shares:[]    
-    }
-  
-    let allArticles = JSON.parse(localStorage.getItem('articles')) || [];
-    allArticles.push(params);
-  
-    localStorage.setItem('articles', JSON.stringify(allArticles)); // Store the updated array in local storage
-  
-         console.log('user articles',allArticles);
-    blogPoster.value = "";
-    // blogSubTitle.value = "";
-    blogTitle.value = "";
-      blogContent.value = "";
-      blogTime.value = ""; 
-      blogCategory.value = ""; 
-      blogPosterError.innerHTML = '';
-      blogTitleError.innerHTML = '';
-      // blogSubTitleError.innerHTML = '';
-      blogContentError.innerHTML = '';
-      blogTimeError.innerHTML = '';
-      blogCategoryError.innerHTML = '';
-  
-      successElement.innerText = "Blog Posted Successfully";
-      errorContainer.style.display = "none"
-      successContainer.style.display = "flex";
-      
-      setTimeout(() => {
-      successContainer.style.display = "none";
-      successElement.innerText = "";
-      }, 2000);
-  
-  }
-          blogForm.addEventListener("submit",(e)=>{
-              let errors = [];
-              e.preventDefault()
-  
-              if (blogPoster.value === '' || blogPoster.value == null){
-                  errors.push('Picture is required')
-                  blogPosterError.style.opacity = '1';
-                  blogPosterError.style.display = 'block';
-                  blogPosterError.innerHTML = 'Picture is required';
-                  blogPoster.style.border = '1px solid red';
-              }
-            
-              // else if(blogTitle.value ==="" || blogTitle.value === null){
-              //     blogPosterError.style.display = 'none';
-              //     blogPoster.style.border = '1px solid green';
-              //     errors.push('Title is required')
-              //     blogTitleError.style.opacity = '1';
-              //     blogTitleError.style.display = 'block';
-              //     blogTitleError.innerHTML = 'Title is required';
-              //     blogTitle.style.border = '1px solid red';
-              // }
-              // else if(blogSubTitle.value ==="" || blogSubTitle.value === null){
-              //     blogTitleError.style.display = 'none';
-              //     blogTitle.style.border = '1px solid green';
-              //     errors.push('sub Title is required')
-              //     blogSubTitleError.style.opacity = '1';
-              //     blogSubTitleError.style.display = 'block';
-              //     blogSubTitleError.innerHTML = 'SubTitle is required';
-              //     blogSubTitle.style.border = '1px solid red';
-              // }
-              // else if(blogTime.value ==="" || blogTime.value === null){
-              //     blogSubTitleError.style.display = 'none';
-              //     blogSubTitle.style.border = '1px solid green';
-              //     errors.push('Time is required')
-              //     blogTimeError.style.opacity = '1';
-              //     blogTimeError.style.display = 'block';
-              //     blogTimeError.innerHTML = 'Time is required';
-              //     blogTime.style.border = '1px solid red';
-              // }
-              // else if(blogCategory.value ==="" || blogCategory.value === null){
-              //     blogTimeError.style.display = 'none';
-              //     blogTime.style.border = '1px solid green';
-              //     errors.push('Category is required')
-              //     blogCategoryError.style.opacity = '1';
-              //     blogCategoryError.style.display = 'block';
-              //     blogCategoryError.innerHTML = 'Blog Category is required';
-              //     blogCategory.style.border = '1px solid red';
-              // }
-  
-              //  else if(blogContent.value ==="" || blogContent.value === null){
-              //     blogCategoryError.style.display = 'none';
-              //     blogCategory.style.border = '1px solid green';
-              //     errors.push('Blog Content is required')
-              //     blogContentError.style.opacity = '1';
-              //     blogContentError.style.display = 'block';
-              //     blogContentError.innerHTML = 'Blog Content is required';
-              //     blogContent.style.border = '1px solid red';
-              // }
-              else{
-                  // blogContentError.style.display = 'none';
-                  // blogContent.style.border = '1px solid green';
-  
-                  // handleBlogSubmit();
-                  // sendMail();
-  
-      const formData  = new FormData()
-       formData.append("image", selectedImage)
-      formData.append("title", blogTitle.value)
-      formData.append("category", blogCategory.value)
-      formData.append("description", blogContent.value)
-      // formData.append("timeToRead", blogTime.value)
-      // console.log("formData before submit", formData)
-                  submitBlog(formData)
-              }
-                
-  
-          if (errors.length > 0){
-      e.preventDefault();
-      errorElement.innerText = errors.join(', ')
-      errorContainer.style.display = "flex"
-    }})
-  
-    const submitBlog = (myFormData) => {
-      // console.log("---myformdata",myFormData)
-  for (let [key, value] of myFormData.entries()) {
-    console.log(key, value);
-  }
-  
-      
-      }
-      function sendBlog() {
-  alert("sending info")
-  let params = {
-      image: selectedImage,
-      title: blogTitle.value,
-      category: blogCategory.value,
-      description: blogContent.value,
-      // timeToRead: blogTime.value, 
+      <!-- Detail Modal -->
+
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script>
+        const blogForm = document.getElementById("dashboard-input-information-form")
+        let blogPoster = document.getElementById("blog-form-poster");
+        let blogTitle = document.getElementById("blog-form-title")
+        let blogContent = document.getElementById("blog-form-content")
+        let blogCategory = document.getElementById("blog-form-category")
+        const blogPosterError = document.getElementById("blog-form-poster-error")
+        const blogTitleError = document.getElementById("blog-form-title-error")
+        const blogContentError = document.getElementById("blog-form-content-error")
+        const blogCategoryError = document.getElementById("blog-form-category-error")
+        const errorContainer = document.getElementById("error-container");
+        const errorElement = document.getElementById("error-text");
+        const successContainer = document.getElementById("success-container");
+        const successElement = document.getElementById("success-text");
+        const previewContainer = document.querySelector('.dashboard-image-preview')
+        let imageUrl = null
+        let blobUrl = null
+        let selectedImage = undefined
+
+        const todayDate = new Date();
+        const today = todayDate.getDate();
+        const month = todayDate.getMonth();
+        const year = todayDate.getFullYear();
+        const hours = todayDate.getHours();
+        const minutes = todayDate.getMinutes();
+        const seconds = todayDate.getSeconds();
+
+        let myFormdata = new FormData();
+
+        // getting image posters from input field
+        blogPoster.addEventListener("change", handleImageUpload);
+
+        function handleImageUpload(event) {
+          const selectedFile = event.target.files[0];
+          selectedImage = event.target.files[0]
+
+          myFormdata.append("image", selectedFile)
+          myFormdata.append("title", "selectedFile")
+          // myFormdata.get('title')
+
+          if (selectedFile) {
+            const reader = new FileReader();
+            blobURL = URL.createObjectURL(selectedFile);
+
+            reader.onload = function (e) {
+              const dataURL = e.target.result;
+              // Use this dataURL to display the image wherever needed
+              displayImage(dataURL);
+              imageUrl = dataURL
+            };
+            reader.readAsDataURL(selectedFile);
+          }
+
         }
-        console.log(localStorage.getItem('token'))
-  console.log(params)
-  fetch("http://localhost:5646/blogs",
-    {
-      method: "POST",
-      body: myFormdata,
-      headers: {
-        "Authorization":`Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      }
-      
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
 
-      // if (data.message =='Blog created successfully') {
-     
-      //   // localStorage.setItem("params", data.blog)
-      //   // localStorage.setItem("token",  JSON.stringify(data?.token));
+        function displayImage(dataURL) {
+          const imagePreview = document.getElementById("image-preview");
+          imagePreview.style.display = "block"
+          imagePreview.style.width = "60%"
+          imagePreview.style.height = "40%"
+          imagePreview.src = dataURL;
+          imagePreview.onload = function () {
+            URL.revokeObjectURL(blobUrl);
+          };
+        }
 
-      //   // if (data.user.userRole == "admin") {
-      //   //   window.location.href = "./dashboard/dash.html"
-      //   // }
-      //   // else {
-      //   //   window.location.href = './home.html'
-      //   // }
-      // }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-};
+        console.log('imageUrl', imageUrl, "end")
+        const handleBlogSubmit = () => {
+          let params = {
+            poster: imageUrl,
+            title: blogTitle.value,
+            category: blogCategory.value,
+            content: blogContent.value,
+            timeToRead: blogTime.value,
+            date: `${today}/${month}/${year}`,
+            time: `${hours}:${minutes}:${seconds}`,
+            editor: "elyse",
+            views: [],
+            likes: [],
+            comments: [],
+            shares: []
+          }
+
+          let allArticles = JSON.parse(localStorage.getItem('articles')) || [];
+          allArticles.push(params);
+
+          localStorage.setItem('articles', JSON.stringify(allArticles)); // Store the updated array in local storage
+
+          console.log('user articles', allArticles);
+          blogPoster.value = "";
+          // blogSubTitle.value = "";
+          blogTitle.value = "";
+          blogContent.value = "";
+          blogTime.value = "";
+          blogCategory.value = "";
+          blogPosterError.innerHTML = '';
+          blogTitleError.innerHTML = '';
+          // blogSubTitleError.innerHTML = '';
+          blogContentError.innerHTML = '';
+          blogTimeError.innerHTML = '';
+          blogCategoryError.innerHTML = '';
+
+          successElement.innerText = "Blog Posted Successfully";
+          errorContainer.style.display = "none"
+          successContainer.style.display = "flex";
+
+          setTimeout(() => {
+            successContainer.style.display = "none";
+            successElement.innerText = "";
+          }, 2000);
+
+        }
+        blogForm.addEventListener("submit", (e) => {
+          let errors = [];
+          e.preventDefault()
+
+
+          // 
+
+          const formData = new FormData()
+          formData.append("image", selectedImage)
+          formData.append("title", blogTitle.value)
+          formData.append("category", blogCategory.value)
+          formData.append("description", blogContent.value)
+          postData()
+          // submitBlog(formData)
+        }
+        )
+        const submitBlog = (myFormData) => {
+          // console.log("---myformdata",myFormData)
+          for (let [key, value] of myFormData.entries()) {
+            console.log(key, value);
+          }
+
+
+        }
+        function sendBlog() {
+          alert("sending info")
+          let params = {
+            image: selectedImage,
+            title: blogTitle.value,
+            category: blogCategory.value,
+            description: blogContent.value,
+            // timeToRead: blogTime.value, 
+          }
+          console.log(localStorage.getItem('token'))
+          console.log(params)
+          fetch("http://localhost:5646/blogs",
+            {
+              method: "POST",
+              body: myFormdata,
+              headers: {
+                "Authorization": getToken(),
+
+              }
+
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        };
+        function postData() {
+          const myToken = JSON.parse(localStorage.getItem("token"));
+          const myHeaders = new Headers();
+          myHeaders.append("Authorization", `Bearer ${myToken}`);
+          let fileInput = document.getElementById('blog-form-poster')
+          const formdata = new FormData();
+          formdata.append("title", blogTitle.value)
+          formdata.append("category", blogCategory.value)
+          formdata.append("description", blogContent.value)
+          // formdata.append("createdAt", "02/FEB/2022");
+          formdata.append("image", fileInput.files[0]);
+
+          const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: formdata,
+            redirect: "follow"
+          };
+
+          fetch("http://localhost:5646/blogs", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error));
+
+          alert('done')
+          window.location.href = "manage.html"; 
+          
+       
+        };
+
+
       </script>
-        
+
 
 
       <!-- CONTENT -->

@@ -147,7 +147,19 @@
 </main>
   <!-- CONTENT -->
   
+<script>
+window.onload = function() {
+  var userIsLoggedIn = localStorage.getItem('userIsLoggedIn');
+  var adminIsLoggedIn = localStorage.getItem('adminIsLoggedIn');
 
+  if (userIsLoggedIn) {
+
+      window.location.href = "./index.html";
+  } else if (adminIsLoggedIn) {
+
+      window.location.href = "./dashboard/dash.html"
+        }
+}</script>
   <script src="./js/bloglist.js"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@ function sendInfo() {
     password: passwordInput.value
   }
   console.log(userlog)
-  fetch("http://localhost:5646/users/login",
+  fetch("https://mybrand-backend-up13.onrender.com/users/login",
     {
       method: "POST",
       body: JSON.stringify(userlog),
@@ -53,9 +53,11 @@ function sendInfo() {
         localStorage.setItem("token",  JSON.stringify(data?.token));
 
         if (data.user.userRole == "admin") {
+          var adminIsLoggedIn = localStorage.setItem('adminIsLoggedIn', true);
           window.location.href = "./dashboard/dash.html"
         }
         else {
+          var userIsLoggedIn = localStorage.setItem('userIsLoggedIn',);
           window.location.href = './home.html'
         }
       }
@@ -63,5 +65,18 @@ function sendInfo() {
     .catch(error => {
       console.error('Error:', error);
     });
+    window.onload = function() {
+      var userIsLoggedIn = localStorage.getItem('userIsLoggedIn');
+      var adminIsLoggedIn = localStorage.getItem('adminIsLoggedIn');
+    
+      if (userIsLoggedIn) {
+
+          window.location.href = "./home.html";
+      } else if (adminIsLoggedIn) {
+
+          window.location.href = "./dashboard/dash.html"
+            }
+    }
 };
+
 
